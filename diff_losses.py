@@ -92,7 +92,7 @@ class ConstellationLoss(nn.Module):
     """
     Constellation Loss
     Triplets are generated using triplet_selector object that take embeddings and targets and return indices of
-    triplets
+    triplets, in our function, we select all triplets that mean hyperparameter K = numb_class - 1
     """
     def __init__(self, margin, triplet_selector):
         super(ConstellationLoss, self).__init__()

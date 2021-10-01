@@ -5,15 +5,20 @@ from utils import BalancedBatchSampler, fit, extract_embeddings, plot_embeddings
 from torch.optim import lr_scheduler
 import torch.optim as optim
 from networks import EmbeddingNet
-from diff_losses import LabelAwareRankedLoss, AllTripletSelector
+from diff_losses import LabelAwareRankedLoss, AllTripletSelector, OnlineTripletLoss, NpairLossMod, ConstellationLoss
 from torchvision.datasets import MNIST
 from torchvision import transforms
+import sys
 
+def print_para(argv):
+    print(argv[1])
+    print(argv[2])
 
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
+def main(argv):
+    '''
+    argv[1]: loss you want to choice
+    argv[2]: training epochs
+    '''
     mean, std = 0.1307, 0.3081
 
     train_dataset = MNIST('../data/MNIST', train=True, download=True,
@@ -44,13 +49,24 @@ if __name__ == '__main__':
     model = embedding_net
     if cuda:
         model.cuda()
+
+    if (argv[1]).lower() == 'triplet':
+        loss_fn = OnlineTripletLoss(margin, AllTripletSelector())
+    elif (argv[1]).lower() == 'npair':
+        loss_fn = NpairLossMod()
+    elif (argv[1]).lower() == 'constellation':
+        loss_fn = ConstellationLoss(margin, AllTripletSelector())
+    elif (argv[1]).lower() == 'lar':
+        loss_fn = LabelAwareRankedLoss(margin, AllTripletSelector(), l2_reg=0.2)
+
     # loss_fn = NpairLoss(AllTripletSelector())
     # loss_fn = OnlineTripletLoss(margin, AllTripletSelector())
-    loss_fn = LabelAwareRankedLoss(margin, AllTripletSelector(), l2_reg=0.2)
+    # loss_fn = LabelAwareRankedLoss(margin, AllTripletSelector(), l2_reg=0.2)
     lr = 0.0005
     optimizer = optim.Adam(model.parameters(), lr=lr)
     scheduler = lr_scheduler.StepLR(optimizer, 8, gamma=0.1, last_epoch=-1)
-    n_epochs = 10
+    n_epochs = int(argv[2])
+
     log_interval = 50
     fit(train_loader, test_loader, model, loss_fn, optimizer, scheduler, n_epochs, cuda, log_interval)
 
@@ -58,3 +74,7 @@ if __name__ == '__main__':
     plot_embeddings(train_embeddings_baseline, train_labels_baseline)
     val_embeddings_baseline, val_labels_baseline = extract_embeddings(test_loader, model)
     plot_embeddings(val_embeddings_baseline, val_labels_baseline)
+
+# Press the green button in the gutter to run the script.
+if __name__ == '__main__':
+    main(sys.argv)
