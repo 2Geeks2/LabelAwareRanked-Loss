@@ -9,15 +9,12 @@ from diff_losses import LabelAwareRankedLoss, AllTripletSelector, OnlineTripletL
 from torchvision.datasets import MNIST
 from torchvision import transforms
 import sys
+import argparse
 
-def print_para(argv):
-    print(argv[1])
-    print(argv[2])
-
-def main(argv):
+def main(loss, epochs):
     '''
-    argv[1]: loss you want to choice
-    argv[2]: training epochs
+    --loss: loss you want to choice
+    --num_epochs: training epochs
     '''
     mean, std = 0.1307, 0.3081
 
@@ -50,13 +47,13 @@ def main(argv):
     if cuda:
         model.cuda()
 
-    if (argv[1]).lower() == 'triplet':
+    if loss.lower() == 'triplet':
         loss_fn = OnlineTripletLoss(margin, AllTripletSelector())
-    elif (argv[1]).lower() == 'npair':
+    elif loss.lower() == 'npair':
         loss_fn = NpairLossMod()
-    elif (argv[1]).lower() == 'constellation':
+    elif loss.lower() == 'constellation':
         loss_fn = ConstellationLoss(margin, AllTripletSelector())
-    elif (argv[1]).lower() == 'lar':
+    elif loss.lower() == 'lar':
         loss_fn = LabelAwareRankedLoss(margin, AllTripletSelector(), l2_reg=0.2)
 
     # loss_fn = NpairLoss(AllTripletSelector())
@@ -65,7 +62,7 @@ def main(argv):
     lr = 0.0005
     optimizer = optim.Adam(model.parameters(), lr=lr)
     scheduler = lr_scheduler.StepLR(optimizer, 8, gamma=0.1, last_epoch=-1)
-    n_epochs = int(argv[2])
+    n_epochs = epochs
 
     log_interval = 50
     fit(train_loader, test_loader, model, loss_fn, optimizer, scheduler, n_epochs, cuda, log_interval)
@@ -77,4 +74,8 @@ def main(argv):
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    main(sys.argv)
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--loss", help="name of the loss", default='lar')
+    parser.add_argument("--num_epochs", help="number of epochs", type=int, default=10)
+    args = parser.parse_args()
+    main(args.loss, args.num_epochs)
