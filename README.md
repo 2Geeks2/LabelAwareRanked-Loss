@@ -11,7 +11,7 @@ The experiment on a randomly generated dataset shows that the LAR loss creates r
 - "num_classes" ---- number of classes of the dataset (int)
 - "num data" ---- number of datapoints  (int)
 - "num_iter" ---- number of iterations (int)
-- "plot" --- "True" or "False" if u want to create the plots
+- "plot" --- "True" or "False" for the plots
 
 <pre><code>python gradient_descent_rnd_data.py --num_classes 7 --num_data 1000 --num_iter 1000 --plot True
 </code></pre>
