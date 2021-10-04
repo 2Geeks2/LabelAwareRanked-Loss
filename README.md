@@ -5,8 +5,9 @@ In this repository, we implement different kinds of losses which are mainly Trip
 ## Code execution
 <img src="figures/random_data_experiment.svg" width="800">
 <img src="figures/random_data_experiment_loss.svg" width="800">
+\n
 The experiment on a randomly generated dataset shows that the LAR loss creates ranked embeddings in uniform angles when it is close to the optimal solution. This experiment can be executed by the following command:
-1.Parameters:
+
 - "num_classes" ---- number of classes of the dataset (int)
 - "num data" ---- number of datapoints  (int)
 - "num_iter" ---- number of iterations (int)
