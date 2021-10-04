@@ -3,7 +3,14 @@
 In this repository, we implement different kinds of losses which are mainly Triplet loss, Multiclass-N-pair loss, Constellation loss, and LabelAwareRanked loss. We use the same smart batch structure to test. Batch is selected by using `BalancedBatchSampler`
 
 ## Code execution
-The experiment for a random dataset with gradient descent can be executed by
+![lar loss_random](figures/random_data_experiment.svg)
+![lar loss_random_loss](figures/random_data_experiment_loss.svg)
+The experiment on a randomly generated dataset shows that the LAR loss creates ranked embeddings in uniform angles when it is close to the optimal solution. This experiment can be executed by the following command:
+1.Parameters:
+- "num_classes" ---- number of classes of the dataset (int)
+- "num data" ---- number of datapoints  (int)
+- "num_iter" ---- number of iterations (int)
+- "plot" --- "True" or "False" if u want to create the plots
 
 <pre><code>python gradient_descent_rnd_data.py --num_classes 7 --num_data 1000 --num_iter 1000 --plot True
 </code></pre>
