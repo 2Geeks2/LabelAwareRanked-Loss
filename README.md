@@ -18,7 +18,7 @@ For MNIST the experiment can be executed by the following script. There are two 
 
 Run the code in command line like following:
 
-<pre><code>python main.py lar 10
+<pre><code>python main.py --loss lar --num_epochs 10
 </code></pre>
 
 
