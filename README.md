@@ -18,8 +18,9 @@ The experiment on a randomly generated dataset shows that the LAR loss creates r
 
 <pre><code>python gradient_descent_rnd_data.py --num_classes 7 --num_data 1000 --num_iter 1000 --plot True
 </code></pre>
-For MNIST the experiment can be executed by the following script. There are two parameters you can choose.
+
 ## MNIST Data Experiment
+For MNIST the experiment can be executed by the following script. There are two parameters you can choose.
 1. Loss: 
    - "triplet" ---- Triplet loss
    - "npair" --- Multiclass-N-pair loss
