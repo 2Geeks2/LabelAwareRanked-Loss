@@ -3,7 +3,10 @@
 In this repository, we implement different kinds of losses which are mainly Triplet loss, Multiclass-N-pair loss, Constellation loss, and LabelAwareRanked loss. We use the same smart batch structure to test. Batch is selected by using `BalancedBatchSampler`
 
 ## Random Data Experiment
+The following image shows randomly generated datapoints on a unit circle that become clustered in uniform angles and ranking after applying and optimizing the LAR loss.
 <img src="figures/random_data_experiment.svg" width="600">
+
+Despite the clustering, we can also see that the loss converges to its minimum which is achieved for uniform angles and ranked between different labels.
 <img src="figures/random_data_experiment_loss.svg" width="600">
 
 The experiment on a randomly generated dataset shows that the LAR loss creates ranked embeddings in uniform angles when it is close to the optimal solution. This experiment can be executed by the following command:
