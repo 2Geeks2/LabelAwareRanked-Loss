@@ -2,9 +2,9 @@
 
 In this repository, we implement different kinds of losses which are mainly Triplet loss, Multiclass-N-pair loss, Constellation loss, and LabelAwareRanked loss. We use the same smart batch structure to test. Batch is selected by using `BalancedBatchSampler`
 
-## Code execution
-<img src="figures/random_data_experiment.svg" width="800">
-<img src="figures/random_data_experiment_loss.svg" width="800">
+## Random Data Experiment
+<img src="figures/random_data_experiment.svg" width="600">
+<img src="figures/random_data_experiment_loss.svg" width="600">
 
 The experiment on a randomly generated dataset shows that the LAR loss creates ranked embeddings in uniform angles when it is close to the optimal solution. This experiment can be executed by the following command:
 
@@ -16,7 +16,7 @@ The experiment on a randomly generated dataset shows that the LAR loss creates r
 <pre><code>python gradient_descent_rnd_data.py --num_classes 7 --num_data 1000 --num_iter 1000 --plot True
 </code></pre>
 For MNIST the experiment can be executed by the following script. There are two parameters you can choose.
-
+## MNIST Data Experiment
 1. Loss: 
    - "triplet" ---- Triplet loss
    - "npair" --- Multiclass-N-pair loss
@@ -30,4 +30,4 @@ Run the code in command line like following:
 </code></pre>
 
 
-<img src="figures/label-aware-ranked_loss.svg" width="800">
+<img src="figures/label-aware-ranked_loss.svg" width="600">
