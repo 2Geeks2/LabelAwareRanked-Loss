@@ -21,12 +21,12 @@ The experiment on a randomly generated dataset shows that the LAR loss creates r
 
 ## MNIST Data Experiment
 For MNIST the experiment can be executed by the following script. There are two parameters you can choose.
-1. Loss: 
+- "loss": 4 choices for loss function
    - "triplet" ---- Triplet loss
    - "npair" --- Multiclass-N-pair loss
    - "constellation" --- Constellation loss
    - "lar" --- LabelAwareRanked loss
-2. Number of epochs: choose a integer
+- "num_epochs" --- number of epochs (int)
 
 Run the code in command line like following:
 
